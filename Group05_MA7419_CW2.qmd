@@ -1,25 +1,53 @@
 ---
 title: "Exploring China's Global and Regional Health and Educational Data"
-author: "Group 05"
+author: "Presented by: Group 05"
 format: revealjs
+title-slide-attributes: 
+  data-background-image: 23833.jpg
+
 editor: visual
 ---
 
-## Quarto
+Data Licence Information
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+Life Expectancy
 
-## Bullets
+Human Mortality Database (2025); UN, World Population Prospects (2024) – processed by Our World in Data
 
-When you click the **Render** button a document will be generated that includes:
+Fertility Rate
 
--   Content authored with markdown
--   Output from executable code
+UN, World Population Prospects (2024) – processed by Our World in Data
 
-## Code
+Air Pollution
 
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+World Health Organization - Global Health Observatory (2025) – processed by Our World in Data
 
-```{r}
-1 + 1
-```
+Water Contamination
+
+WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation and Hygiene (2025) – Learn more about this data CC BY
+
+Doctor to Patient Ratio
+
+Global Health Workforce Statistics, WHO, via World Bank (2026) – processed by Our World in Data
+
+WHO Mental Health Atlas 2020 via UNICEF (2023) – with major processing by Our World in Data
+
+Mental Health
+
+World Health Organization (2024) – with major processing by Our World in Data
+
+World Health Organization (2024)
+
+Literacy
+
+UNESCO Institute for Statistics (2025) – with minor processing by Our World in Data
+
+Gender Equality in Education
+
+UNDP, Human Development Report (2025) – with minor processing by Our World in Data
+
+UNDP, Human Development Report (2025) – with minor processing by Our World in Data
+
+Post-Secondary Education 
+
+Annual Publications
