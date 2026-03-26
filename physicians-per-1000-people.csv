@@ -1,0 +1,339 @@
+Entity,Code,Year,"Physicians (per 1,000 people)"
+Australia,AUS,1961,1.1
+Australia,AUS,1966,1.2
+Australia,AUS,1971,1.2
+Australia,AUS,1976,1.5
+Australia,AUS,1981,1.8
+Australia,AUS,1984,1.8
+Australia,AUS,1985,1.9
+Australia,AUS,1986,2
+Australia,AUS,1987,2.1
+Australia,AUS,1988,2.1
+Australia,AUS,1989,2.1
+Australia,AUS,1990,2.16
+Australia,AUS,1991,2.325
+Australia,AUS,1992,2.363
+Australia,AUS,1993,2.387
+Australia,AUS,1994,2.425
+Australia,AUS,1995,2.464
+Australia,AUS,1996,2.39
+Australia,AUS,1997,2.388
+Australia,AUS,1998,2.389
+Australia,AUS,1999,2.433
+Australia,AUS,2000,2.476
+Australia,AUS,2001,2.551
+Australia,AUS,2002,2.546
+Australia,AUS,2003,2.615
+Australia,AUS,2004,2.692
+Australia,AUS,2005,2.764
+Australia,AUS,2006,2.825
+Australia,AUS,2007,2.99
+Australia,AUS,2008,3
+Australia,AUS,2009,3.104
+Australia,AUS,2010,3.345
+Australia,AUS,2011,3.296
+Australia,AUS,2012,3.293
+Australia,AUS,2013,3.356
+Australia,AUS,2014,3.432
+Australia,AUS,2015,3.486
+Australia,AUS,2016,3.557
+Australia,AUS,2017,3.656
+Australia,AUS,2018,3.726
+Australia,AUS,2019,3.808
+Australia,AUS,2020,3.895
+China,CHN,1965,1.07
+China,CHN,1966,0.96
+China,CHN,1967,0.94
+China,CHN,1968,0.91
+China,CHN,1969,0.88
+China,CHN,1970,0.86
+China,CHN,1971,0.85
+China,CHN,1972,0.86
+China,CHN,1973,0.89
+China,CHN,1974,0.92
+China,CHN,1975,0.96
+China,CHN,1976,1
+China,CHN,1977,1.03
+China,CHN,1979,1.12
+China,CHN,1981,1.25
+China,CHN,1982,1.3
+China,CHN,1983,1.32
+China,CHN,1984,1.33
+China,CHN,1986,1.35
+China,CHN,1987,1.37
+China,CHN,1988,1.47
+China,CHN,1989,1.54
+China,CHN,1990,1.13
+China,CHN,1995,1.192
+China,CHN,1996,1.199
+China,CHN,1997,1.213
+China,CHN,1998,1.21
+China,CHN,1999,1.239
+China,CHN,2000,1.263
+China,CHN,2001,1.28
+China,CHN,2002,1.137
+China,CHN,2003,1.185
+China,CHN,2004,1.215
+China,CHN,2005,1.239
+China,CHN,2006,1.273
+China,CHN,2007,1.294
+China,CHN,2008,1.343
+China,CHN,2009,1.419
+China,CHN,2010,1.46
+China,CHN,2011,1.485
+China,CHN,2012,1.562
+China,CHN,2013,1.658
+China,CHN,2014,1.711
+China,CHN,2015,1.797
+China,CHN,2016,1.888
+China,CHN,2017,2.003
+China,CHN,2018,2.122
+China,CHN,2019,2.255
+China,CHN,2020,2.385
+India,IND,1960,0.21
+India,IND,1965,0.205
+India,IND,1970,0.205
+India,IND,1975,0.204
+India,IND,1980,0.371
+India,IND,1981,0.27
+India,IND,1984,0.396
+India,IND,1988,0.407
+India,IND,1991,1.231
+India,IND,2014,0.715
+India,IND,2015,0.723
+India,IND,2016,0.748
+India,IND,2017,0.766
+India,IND,2018,0.84
+India,IND,2019,0.889
+India,IND,2020,0.723
+Japan,JPN,1960,1
+Japan,JPN,1961,1
+Japan,JPN,1962,1
+Japan,JPN,1963,1
+Japan,JPN,1964,1
+Japan,JPN,1965,1
+Japan,JPN,1966,1
+Japan,JPN,1967,1
+Japan,JPN,1968,1
+Japan,JPN,1969,1.1
+Japan,JPN,1970,1.1
+Japan,JPN,1971,1.1
+Japan,JPN,1972,1.1
+Japan,JPN,1973,1.1
+Japan,JPN,1974,1.1
+Japan,JPN,1975,1.1
+Japan,JPN,1976,1.1
+Japan,JPN,1977,1.2
+Japan,JPN,1978,1.2
+Japan,JPN,1979,1.2
+Japan,JPN,1981,1.3
+Japan,JPN,1985,1.5
+Japan,JPN,1990,1.653
+Japan,JPN,1992,1.703
+Japan,JPN,1994,1.77
+Japan,JPN,1996,1.837
+Japan,JPN,1998,1.887
+Japan,JPN,2000,1.931
+Japan,JPN,2002,1.976
+Japan,JPN,2004,2.029
+Japan,JPN,2006,2.082
+Japan,JPN,2008,2.146
+Japan,JPN,2010,2.212
+Japan,JPN,2012,2.283
+Japan,JPN,2014,2.354
+Japan,JPN,2016,2.423
+Japan,JPN,2018,2.485
+Japan,JPN,2020,2.592
+Russia,RUS,1985,3.871
+Russia,RUS,1986,3.939
+Russia,RUS,1987,4.004
+Russia,RUS,1988,4.04
+Russia,RUS,1989,4.085
+Russia,RUS,1990,4.479
+Russia,RUS,1991,4.23
+Russia,RUS,1992,4.28
+Russia,RUS,1993,4.331
+Russia,RUS,1994,4.297
+Russia,RUS,1995,4.408
+Russia,RUS,1996,4.519
+Russia,RUS,1997,4.555
+Russia,RUS,1998,4.605
+Russia,RUS,1999,4.635
+Russia,RUS,2000,4.636
+Russia,RUS,2001,4.639
+Russia,RUS,2002,4.676
+Russia,RUS,2003,4.705
+Russia,RUS,2004,4.74
+Russia,RUS,2005,4.774
+Russia,RUS,2006,4.873
+Russia,RUS,2007,4.917
+Russia,RUS,2008,4.894
+Russia,RUS,2009,4.944
+Russia,RUS,2010,4.973
+Russia,RUS,2011,4.22
+Russia,RUS,2012,4.003
+Russia,RUS,2013,3.987
+Russia,RUS,2014,4.12
+Russia,RUS,2015,3.925
+Russia,RUS,2016,3.964
+Russia,RUS,2017,4.058
+Russia,RUS,2018,4.097
+Russia,RUS,2019,4.165
+Russia,RUS,2020,3.807
+Saudi Arabia,SAU,1960,0.061
+Saudi Arabia,SAU,1965,0.106
+Saudi Arabia,SAU,1970,0.134
+Saudi Arabia,SAU,1981,0.55
+Saudi Arabia,SAU,1986,1.346
+Saudi Arabia,SAU,1990,1.433
+Saudi Arabia,SAU,1993,1.335
+Saudi Arabia,SAU,1997,1.66
+Saudi Arabia,SAU,2000,0.924
+Saudi Arabia,SAU,2001,0.849
+Saudi Arabia,SAU,2008,1.971
+Saudi Arabia,SAU,2009,1.937
+Saudi Arabia,SAU,2010,2.244
+Saudi Arabia,SAU,2011,2.27
+Saudi Arabia,SAU,2012,2.273
+Saudi Arabia,SAU,2013,2.426
+Saudi Arabia,SAU,2014,2.371
+Saudi Arabia,SAU,2015,2.444
+Saudi Arabia,SAU,2016,2.466
+Saudi Arabia,SAU,2017,2.676
+Saudi Arabia,SAU,2018,2.899
+Saudi Arabia,SAU,2019,2.633
+Saudi Arabia,SAU,2020,3.076
+Turkey,TUR,1960,0.3
+Turkey,TUR,1961,0.3
+Turkey,TUR,1962,0.4
+Turkey,TUR,1963,0.4
+Turkey,TUR,1964,0.3
+Turkey,TUR,1965,0.4
+Turkey,TUR,1966,0.4
+Turkey,TUR,1967,0.4
+Turkey,TUR,1968,0.4
+Turkey,TUR,1969,0.4
+Turkey,TUR,1990,0.904
+Turkey,TUR,1991,0.956
+Turkey,TUR,1992,0.983
+Turkey,TUR,1993,1.035
+Turkey,TUR,1994,1.097
+Turkey,TUR,1995,1.112
+Turkey,TUR,1996,1.116
+Turkey,TUR,1997,1.138
+Turkey,TUR,1998,1.178
+Turkey,TUR,1999,1.233
+Turkey,TUR,2000,1.303
+Turkey,TUR,2001,1.356
+Turkey,TUR,2002,1.371
+Turkey,TUR,2003,1.393
+Turkey,TUR,2004,1.416
+Turkey,TUR,2005,1.455
+Turkey,TUR,2006,1.492
+Turkey,TUR,2007,1.532
+Turkey,TUR,2008,1.581
+Turkey,TUR,2009,1.637
+Turkey,TUR,2010,1.683
+Turkey,TUR,2011,1.698
+Turkey,TUR,2012,1.726
+Turkey,TUR,2013,1.751
+Turkey,TUR,2014,1.738
+Turkey,TUR,2015,1.765
+Turkey,TUR,2016,1.774
+Turkey,TUR,2017,1.805
+Turkey,TUR,2018,1.814
+Turkey,TUR,2019,1.884
+Turkey,TUR,2020,1.989
+Uganda,UGA,1960,0.074
+Uganda,UGA,1965,0.09
+Uganda,UGA,1970,0.108
+Uganda,UGA,1975,0.108
+Uganda,UGA,1981,0.047
+Uganda,UGA,1982,0.046
+Uganda,UGA,1984,0.044
+Uganda,UGA,1989,0.045
+Uganda,UGA,1993,0.04
+Uganda,UGA,2002,0.047
+Uganda,UGA,2004,0.081
+Uganda,UGA,2005,0.12
+Uganda,UGA,2012,0.098
+Uganda,UGA,2015,0.097
+Uganda,UGA,2017,0.172
+Uganda,UGA,2020,0.158
+United Kingdom,GBR,1960,0.8
+United Kingdom,GBR,1961,0.9
+United Kingdom,GBR,1962,0.9
+United Kingdom,GBR,1963,0.9
+United Kingdom,GBR,1964,0.9
+United Kingdom,GBR,1965,0.9
+United Kingdom,GBR,1966,0.9
+United Kingdom,GBR,1967,0.9
+United Kingdom,GBR,1968,0.9
+United Kingdom,GBR,1969,0.9
+United Kingdom,GBR,1970,0.9
+United Kingdom,GBR,1971,1
+United Kingdom,GBR,1972,1
+United Kingdom,GBR,1973,1.1
+United Kingdom,GBR,1974,1.1
+United Kingdom,GBR,1975,1.1
+United Kingdom,GBR,1976,1.2
+United Kingdom,GBR,1977,1.2
+United Kingdom,GBR,1978,1.2
+United Kingdom,GBR,1979,1.3
+United Kingdom,GBR,1990,1.614
+United Kingdom,GBR,1991,1.627
+United Kingdom,GBR,1992,1.64
+United Kingdom,GBR,1993,1.677
+United Kingdom,GBR,1994,1.691
+United Kingdom,GBR,1995,1.751
+United Kingdom,GBR,1996,1.791
+United Kingdom,GBR,1997,1.848
+United Kingdom,GBR,1998,1.893
+United Kingdom,GBR,1999,1.907
+United Kingdom,GBR,2000,1.987
+United Kingdom,GBR,2001,2.036
+United Kingdom,GBR,2002,2.107
+United Kingdom,GBR,2003,2.194
+United Kingdom,GBR,2004,2.324
+United Kingdom,GBR,2005,2.4
+United Kingdom,GBR,2006,2.45
+United Kingdom,GBR,2007,2.481
+United Kingdom,GBR,2008,2.559
+United Kingdom,GBR,2009,2.642
+United Kingdom,GBR,2010,2.645
+United Kingdom,GBR,2011,2.682
+United Kingdom,GBR,2012,2.69
+United Kingdom,GBR,2013,2.702
+United Kingdom,GBR,2014,2.738
+United Kingdom,GBR,2015,2.767
+United Kingdom,GBR,2016,2.773
+United Kingdom,GBR,2017,2.802
+United Kingdom,GBR,2018,2.828
+United Kingdom,GBR,2019,2.932
+United Kingdom,GBR,2020,3.028
+United States,USA,1960,1.1
+United States,USA,1965,1.2
+United States,USA,1970,1.2
+United States,USA,1975,1.3
+United States,USA,1976,1.3
+United States,USA,1977,1.3
+United States,USA,1978,1.4
+United States,USA,1979,1.4
+United States,USA,1980,1.5
+United States,USA,1981,1.5
+United States,USA,1982,1.6
+United States,USA,1983,1.6
+United States,USA,1986,1.7
+United States,USA,1987,1.8
+United States,USA,1988,1.8
+United States,USA,1989,1.8
+United States,USA,1990,1.8
+United States,USA,1991,1.9
+United States,USA,1992,1.9
+United States,USA,1993,1.9
+United States,USA,1995,2.411
+United States,USA,2000,2.596
+United States,USA,2004,2.711
+United States,USA,2018,2.548
+United States,USA,2019,3.482
+United States,USA,2020,3.518
