@@ -7,8 +7,11 @@ title-slide-attributes:
 
 editor: visual
 ---
+```{r}
+knitr::opts_chunk$set(error = TRUE)
+```
 
-Data Licence Information
+Data Licences
 
 Life Expectancy
 
@@ -36,8 +39,6 @@ Mental Health
 
 World Health Organization (2024) – with major processing by Our World in Data
 
-World Health Organization (2024)
-
 Literacy
 
 UNESCO Institute for Statistics (2025) – with minor processing by Our World in Data
@@ -46,8 +47,62 @@ Gender Equality in Education
 
 UNDP, Human Development Report (2025) – with minor processing by Our World in Data
 
-UNDP, Human Development Report (2025) – with minor processing by Our World in Data
-
 Post-Secondary Education
 
 Annual Publications
+
+```{r}
+#Importing physicians csv file
+doctors_per_1000 <- read.csv("physicians-per-1000-people.csv")
+
+#Cleaning column names with janitor()
+doctors_per_1000 <- (doctors_per_1000)
+
+#Changing name of final column
+names(doctors_per_1000)[4] <- "physicians"
+
+```
+
+doctors_per_1000 \<- doctors_per_1000 \|\> mutate(Year = as.numeric(Year)) \|\> filter(Year \> 2010)
+
+```{r}
+#Filtering out the rows of countries we don't want to use. They're not "Giants" economically
+table(doctors_per_1000$Entity)
+
+target_ents<- c("United States", "China", "Japan", "India", "United Kingdom")
+
+doctors_per_1000 <- doctors_per_1000 |> dplyr::filter(Entity %in% target_ents)
+
+doctors_per_1000 <- doctors_per_1000 |> dplyr::mutate(Entity = forcats::fct_reorder(Entity, physicians))
+
+range(doctors_per_1000$Year, na.rm = TRUE)
+sum(is.na(doctors_per_1000$Year))
+
+doctors_per_1000 <- doctors_per_1000 |> 
+  dplyr::mutate(Year = as.numeric(Year)) |> 
+  dplyr::filter(Year > 2010)
+#Left with all of the "Giant" Countries with data 
+```
+
+```{r}
+#Calculating percentage difference between China 2010 and China 2020
+
+china_2011 <- doctors_per_1000 |>
+  filter(Entity == "China", Year == 2011) |>
+  dplyr::pull(physicians)
+
+china_2020 <- doctors_per_1000 |> filter(Entity == "China", Year == 2020) |> dplyr::pull(physicians)
+
+((china_2020 - china_2011)/ china_2011) * 100
+```
+
+## Where Does China sit amoung the worlds largest economies in terms of healthcare workforce density?
+
+```{r}
+#Visualising this data in a bar chart
+ggplot2::ggplot(doctors_per_1000, ggplot2::aes(x = factor(Year), y = physicians, fill = Entity)) + ggplot2::geom_col(position = "dodge") + ggplot2::labs(x = "Year", y = "Physicians", title = " Number of Physicians in Economically Giant Countries Over the Years", fill = "Country", caption = "Data Source: Global Health Workforce Statistics, WHO, via World Bank (2026) – processed by Our World in Data") + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1)) + ggplot2::scale_fill_brewer(palette = "Spectral")
+```
+
+This Chart reveals that China's Grown in physician density between 2011 and 2020 was remarkable. However, compared to the other "economic giants" there is a significant difference in amounts. Starting the decade with the lowest recorded density amoug the giants, China consistently expanded its medical workforce, almost doubling its figures by 2020 (60.6% increase).
+
+Despite this, China still lags behind the United States and the United Kingdom, who sustain higher physician-to-population ratios. While China has overtaken India and (almost) Japan, it's "giant" economic status is not yet matched by the per-capita healthcare resources seen in Western peers, suggesting a continuing need for investment in the medical workforce.
