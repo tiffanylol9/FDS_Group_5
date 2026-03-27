@@ -49,6 +49,8 @@ UNDP, Human Development Report (2025) – with minor processing by Our World in 
 ### Post-Secondary Education
 
 ```{r}
+library(janitor)
+library(RColorBrewer)
 #Importing physicians csv file
 doctors_per_1000 <- read.csv("physicians-per-1000-people.csv")
 
@@ -208,3 +210,62 @@ ggplot(compare_data, aes(x = Year, y = journal_articles, color = Entity)) +
 
 
 China experienced the fastest growth in scientific and technical journal article output over the period shown. While the United States started as the leading publicist, China expanded rapidly and overtook it in the later years. Despite increasing their output, Germany and India only showed moderate development, and Saudi Arabia remained at a lower level throughout. Overall, the chart shows that China has become a leading global producer of scientific research.
+
+```{r}
+#Visualising this data in a bar chart
+ggplot2::ggplot(doctors_per_1000, ggplot2::aes(x = factor(Year), y = physicians, fill = Entity)) + ggplot2::geom_col(position = "dodge") + ggplot2::labs(x = "Year", y = "Physicians", title = " Number of Physicians in Economically Giant Countries Over the Years", fill = "Country", caption = "Data Source: Global Health Workforce Statistics, WHO, via World Bank (2026) – processed by Our World in Data") + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1)) + ggplot2::scale_fill_brewer(palette = "Spectral") |> print()
+```
+
+This Chart reveals that China's Grown in physician density between 2011 and 2020 was remarkable. However, compared to the other "economic giants" there is a significant difference in amounts. Starting the decade with the lowest recorded density amoug the giants, China consistently expanded its medical workforce, almost doubling its figures by 2020 (60.6% increase).
+
+Despite this, China still lags behind the United States and the United Kingdom, who sustain higher physician-to-population ratios. While China has overtaken India and (almost) Japan, it's "giant" economic status is not yet matched by the per-capita healthcare resources seen in Western peers, suggesting a continuing need for investment in the medical workforce.
+
+
+```{r}
+#loading mental health datasets
+deaths_rates_mental_health_substance <- read.csv("death-rates-from-mental-and-substance-disorders-by-age-who.csv")
+```
+## China's Mental Health
+
+```{r}
+#using janitor function to clean column titles
+deaths_rates_mental_health_substance <- clean_names(deaths_rates_mental_health_substance)
+
+names(deaths_rates_mental_health_substance)[4] <- "0 - 4 years"
+names(deaths_rates_mental_health_substance)[5] <- "5 - 14 years"
+names(deaths_rates_mental_health_substance)[6] <- "15 - 49 years"
+names(deaths_rates_mental_health_substance)[7] <- "50 - 60 years"
+names(deaths_rates_mental_health_substance)[8] <- "+70 years"
+
+#Removing a column
+deaths_rates_mental_health_substance <- deaths_rates_mental_health_substance |> mutate(all_ages_average = NULL)
+```
+
+```{r}
+
+# Data
+slices <- c(0.000745181, 2.254992, 2.920852, 2.918692)
+slices_percent <- slices / sum(slices) * 100
+# Labels with percentages in brackets
+lbls <- c("5-14", "15-49", "50-60", "+70")
+lbls <- paste(lbls, "(", round(slices_percent, 2), "%)", sep="")
+# Colors
+colors <- brewer.pal(length(lbls), "Set2")
+# Pie chart
+pie(slices, labels = lbls,
+main = "% of Deaths from Mental Health and Substance Abuse by Age in China (2021)",
+col = colors)
+# Source
+mtext("Source: World Health Organization (2024) – processed by Our World in Data",
+side = 1, line = 4, adj = 1, cex=0.7)
+```
+The sensitive topic of fatalities attributed to Mental Heath garnered minimal public datasets.
+However, after cleaning column names with the janitor package, and Base R we created a table
+with the tidyr package to change the shape of our data, and the knit package for polished
+visuals.
+
+Pie chart was developed with Base R functions.
+The distribution suggests that in China, the intersection of aging and mental health is a primary
+health concern with fatalities increasing by age. This sparks a critical need for targeted
+interventions tailored more for middle-aged and elderly populations, as the demographic as the
+most effected.
