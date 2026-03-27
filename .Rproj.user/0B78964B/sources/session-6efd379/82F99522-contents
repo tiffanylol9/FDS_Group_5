@@ -1,0 +1,306 @@
+---
+title: "Exploring China's Global and Regional Health and Educational Data"
+author: "Presented by: Group 05"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    width: 1400
+    height: 900
+    css: styles.css
+title-slide-attributes: 
+  data-background-image: 23833.jpg
+editor: visual
+execute:
+  echo: false
+---
+
+## Data Licence Information
+
+### Life Expectancy
+
+Human Mortality Database (2025); UN, World Population Prospects (2024) – processed by Our World in Data
+
+### Fertility Rate
+
+UN, World Population Prospects (2024) – processed by Our World in Data
+
+### Air Pollution
+
+World Health Organization - Global Health Observatory (2025) – processed by Our World in Data
+
+### Water Contamination
+
+WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation and Hygiene (2025) – Learn more about this data CC BY
+
+### Doctor to Patient Ratio
+
+Global Health Workforce Statistics, WHO, via World Bank (2026) – processed by Our World in Data
+
+WHO Mental Health Atlas 2020 via UNICEF (2023) – with major processing by Our World in Data
+
+### Mental Health
+
+World Health Organization (2024) – with major processing by Our World in Data
+
+World Health Organization (2024)
+
+### Literacy
+
+UNESCO Institute for Statistics (2025) – with minor processing by Our World in Data
+
+### Gender Equality in Education
+
+UNDP, Human Development Report (2025) – with minor processing by Our World in Data
+
+UNDP, Human Development Report (2025) – with minor processing by Our World in Data
+
+### Post-Secondary Education
+
+```{r}
+#Importing physicians csv file
+doctors_per_1000 <- read.csv("physicians-per-1000-people.csv")
+
+#Cleaning column names with janitor()
+doctors_per_1000 <- (doctors_per_1000)
+
+#Changing name of final column
+names(doctors_per_1000)[4] <- "physicians"
+
+```
+
+```{r}
+#Filtering out the rows of countries we don't want to use. They're not "Giants" economically
+table(doctors_per_1000$Entity)
+
+target_ents<- c("United States", "China", "Japan", "India", "United Kingdom")
+
+doctors_per_1000 <- doctors_per_1000 |> dplyr::filter(Entity %in% target_ents)
+
+doctors_per_1000 <- doctors_per_1000 |> dplyr::mutate(Entity = forcats::fct_reorder(Entity, physicians))
+
+range(doctors_per_1000$Year, na.rm = TRUE)
+sum(is.na(doctors_per_1000$Year))
+
+doctors_per_1000 <- doctors_per_1000 |> 
+  dplyr::mutate(Year = as.numeric(Year)) |> 
+  dplyr::filter(Year > 2010)
+#Left with all of the "Giant" Countries with data 
+```
+
+```{r}
+#Calculating percentage difference between China 2010 and China 2020
+
+china_2011 <- doctors_per_1000 |>
+  dplyr::filter(Entity == "China", Year == 2011) |>
+  dplyr::pull(physicians)
+
+china_2020 <- doctors_per_1000 |>
+  dplyr::filter(Entity == "China", Year == 2020) |>
+  dplyr::pull(physicians)
+
+((china_2020 - china_2011) / china_2011) * 100
+```
+
+## Where Does China sit amoung the worlds largest economies in terms of healthcare workforce density?
+
+```{r}
+#Visualising this data in a bar chart
+ggplot2::ggplot(doctors_per_1000, ggplot2::aes(x = factor(Year), y = physicians, fill = Entity)) + ggplot2::geom_col(position = "dodge") + ggplot2::labs(x = "Year", y = "Physicians", title = " Number of Physicians in Economically Giant Countries Over the Years", fill = "Country", caption = "Data Source: Global Health Workforce Statistics, WHO, via World Bank (2026) – processed by Our World in Data") + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1)) + ggplot2::scale_fill_brewer(palette = "Spectral")
+```
+
+This Chart reveals that China's Grown in physician density between 2011 and 2020 was remarkable. However, compared to the other "economic giants" there is a significant difference in amounts. Starting the decade with the lowest recorded density amoug the giants, China consistently expanded its medical workforce, almost doubling its figures by 2020 (60.6% increase).
+
+Despite this, China still lags behind the United States and the United Kingdom, who sustain higher physician-to-population ratios. While China has overtaken India and (almost) Japan, it's "giant" economic status is not yet matched by the per-capita healthcare resources seen in Western peers, suggesting a continuing need for investment in the medical workforce.
+
+## How does China compare with selected countries in post-secondary educational attainment?
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+
+edu <- read.csv(
+  "share-of-the-population-with-a-completed-post-secondary-education.csv",
+  check.names = FALSE
+)
+
+compare_data <- edu %>%
+  filter(
+    Entity %in% c("China", "Canada", "Saudi Arabia", "United Kingdom"),
+    Year >= 2000,
+    Year <= 2020
+  ) %>%
+  mutate(
+    Entity = factor(Entity, levels = c("China", "Saudi Arabia", "United Kingdom", "Canada"))
+  )
+
+ggplot(compare_data, aes(x = Year, y = Value, color = Entity)) +
+  geom_line(linewidth = 0.5, alpha = 0.95) +
+  geom_point(size = 1) +
+  scale_x_continuous(breaks = seq(2000, 2020, by = 5)) +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  labs(
+    title = "Population aged 25+ with completed post-secondary education ",
+    subtitle = "(2000–2020)",
+    x = "Year",
+    y = "Share of population",
+    color = "Country"
+  ) +
+  theme_minimal(base_size = 18) +
+  theme(
+    plot.title = element_text(face = "bold", size = 16, hjust = 0.5),
+    plot.subtitle = element_text(size = 12, hjust = 0.5, color = "grey30"),
+    axis.title = element_text(face = "bold", size = 15),
+    axis.text = element_text(size = 12, color = "grey20"),
+    legend.title = element_text(face = "bold", size = 13),
+    legend.text = element_text(size = 12),
+    legend.position = "right",
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(linewidth = 0.4, color = "grey85")
+  )
+```
+
+It is evident that China maintained a high literacy rate throughout this time period, performing at a level comparable to the strongest countries in the dataset. Unlike indicators such as post-secondary education, literacy shows much less separation between China and the comparison countries.
+
+This suggests that China has been highly effective in delivering standard education to its population. Overall, the chart highlights literacy as a relative strength for China, demonstrating that foundational educational access is far more developed in this nation.
+
+## How has China’s scientific and technical journal article output changed compared with selected major economies from 2000 to 2022?
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+
+articles <- read.csv(
+  "scientific-and-technical-journal-articles.csv",
+  check.names = FALSE
+)
+
+names(articles)[4] <- "journal_articles"
+
+compare_data <- articles %>%
+  filter(
+    Entity %in% c("China", "United States", "Germany", "India", "Saudi Arabia"),
+    Year >= 2000,
+    Year <= 2022
+  ) %>%
+  mutate(
+    Entity = factor(Entity, levels = c("China", "United States", "Germany", "India", "Saudi Arabia"))
+  )
+
+ggplot(compare_data, aes(x = Year, y = journal_articles, color = Entity)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 1.8) +
+  scale_x_continuous(breaks = seq(2000, 2022, by = 5)) +
+  scale_y_continuous(labels = scales::label_comma()) +
+  labs(
+    title = "China compared with selected major economies",
+    subtitle = "(2000–2022)",
+    x = "Year",
+    y = "Number of journal articles",
+    color = "Country",
+    caption = "Data Source: World Bank / Our World in Data"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 16, hjust = 0.5),
+    plot.subtitle = element_text(size = 11, hjust = 0.5, color = "grey30"),
+    axis.title = element_text(face = "bold", size = 11),
+    axis.text = element_text(size = 9, color = "grey20"),
+    legend.title = element_text(face = "bold", size = 9),
+    legend.text = element_text(size = 8),
+    legend.position = "right",
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(linewidth = 0.3, color = "grey85")
+  )
+```
+
+China experienced the fastest growth in scientific and technical journal article output over the period shown. While the United States started as the leading publicist, China expanded rapidly and overtook it in the later years. Despite increasing their output, Germany and India only showed moderate development, and Saudi Arabia remained at a lower level throughout. Overall, the chart shows that China has become a leading global producer of scientific research.
+
+## Reading & Cleaning: Life Expectancy Data
+
+```         
+```
+
+```{r}
+
+```
+
+The dataset contains time-series data (1930–2023) for **China**, **Asia**, **World**, and **Upper-middle-income countries**.
+
+------------------------------------------------------------------------
+
+## Reading & Cleaning: Fertility Data
+
+```{r}
+  echo=TRUE, warning=FALSE, message=FALSE} # Reading the fertility dataset fertility <- read.csv("children-per-woman-un.csv", check.names = FALSE)  # Rename the 4th column for clarity names(fertility)[4] <- "fertility_rate"  # Check structure str(fertility) range(fertility$Year, na.rm = TRUE) sum(is.na(fertility$fertility_rate))
+```
+
+The dataset contains **2023 cross-sectional data** for 200 countries, with no missing values.
+
+------------------------------------------------------------------------
+
+## Has China Reached Life Expectancy Levels Comparable to Developed Countries?
+
+```{r warning=FALSE, message=FALSE} library(tidyverse)  life_exp <- read.csv("life-expectancy.csv", check.names = FALSE) names(life_exp)[4] <- "life_expectancy"  # Filter from 1950 onwards for a clean modern comparison life_exp_filtered <- life_exp |>   dplyr::filter(Year >= 1950) |>   dplyr::mutate(     Entity = dplyr::recode(Entity,       "Upper-middle-income countries" = "Upper-Middle-Income Countries")   )  ggplot2::ggplot(life_exp_filtered,                 ggplot2::aes(x = Year, y = life_expectancy,                              colour = Entity)) +   ggplot2::geom_line(ggplot2::aes(linewidth = Entity == "China")) +   ggplot2::scale_linewidth_manual(values = c("TRUE" = 1.4, "FALSE" = 0.7),                                   guide = "none") +   ggplot2::scale_colour_brewer(palette = "Set1") +   ggplot2::scale_x_continuous(breaks = seq(1950, 2023, by = 10)) +   ggplot2::labs(     title = "Life Expectancy Over Time: China vs Global Benchmarks",     subtitle = "1950–2023",     x = "Year",     y = "Life Expectancy (years)",     colour = "Entity",     caption = "Data Source: Human Mortality Database; UN World Population Prospects (2024) – processed by Our World in Data"   ) +   ggplot2::theme_minimal(base_size = 16) +   ggplot2::theme(     plot.title = ggplot2::element_text(face = "bold", size = 16, hjust = 0.5),     plot.subtitle = ggplot2::element_text(size = 12, hjust = 0.5, colour = "grey40"),     legend.position = "bottom",     panel.grid.minor = ggplot2::element_blank(),     panel.grid.major.x = ggplot2::element_blank()   )}
+```
+
+------------------------------------------------------------------------
+
+## How Much Has China Grown? A Quantified View
+
+```{r warning=FALSE, message=FALSE} library(tidyverse)  life_exp <- read.csv("life-expectancy.csv", check.names = FALSE) names(life_exp)[4] <- "life_expectancy"  # For each entity, pick the closest available row to each target year target_years <- c(1950, 1980, 2000, 2023)  milestones <- life_exp |>   dplyr::filter(Year >= 1950) |>   dplyr::group_by(Entity) |>   dplyr::filter(Year %in% target_years) |>   dplyr::ungroup() |>   dplyr::mutate(     life_expectancy = round(life_expectancy, 1),     Year = factor(Year)   )  ggplot2::ggplot(milestones,                 ggplot2::aes(x = Year, y = life_expectancy, fill = Entity)) +   ggplot2::geom_col(position = ggplot2::position_dodge2(preserve = "single")) +   ggplot2::geom_text(ggplot2::aes(label = life_expectancy),                      position = ggplot2::position_dodge2(width = 0.9, preserve = "single"),                      vjust = -0.4, size = 3.2, fontface = "bold") +   ggplot2::scale_fill_brewer(palette = "Spectral") +   ggplot2::labs(     title = "Life Expectancy at Key Milestones: China vs Benchmarks",     subtitle = "Selected years: 1950, 1980, 2000, 2023",     x = "Year",     y = "Life Expectancy (years)",     fill = "Entity",     caption = "Data Source: Human Mortality Database; UN World Population Prospects (2024) – processed by Our World in Data"   ) +   ggplot2::theme_minimal(base_size = 16) +   ggplot2::theme(     plot.title = ggplot2::element_text(face = "bold", size = 16, hjust = 0.5),     plot.subtitle = ggplot2::element_text(size = 12, hjust = 0.5, colour = "grey40"),     panel.grid.major.x = ggplot2::element_blank(),     panel.grid.minor = ggplot2::element_blank(),     legend.position = "bottom"   )}
+```
+
+------------------------------------------------------------------------
+
+## China's Life Expectancy Gain vs Benchmarks (1950–2023)
+
+```         
+```
+
+`` {r} library(tidyverse)  life_exp <- read.csv("life-expectancy.csv", check.names = FALSE) names(life_exp)[4] <- "life_expectancy"  # Calculate gain from 1950 to 2023 gain_table <- life_exp |>   dplyr::filter(Year %in% c(1950, 2023)) |>   dplyr::select(Entity, Year, life_expectancy) |>   tidyr::pivot_wider(names_from = Year, values_from = life_expectancy,                      names_prefix = "Year_") |>   dplyr::mutate(     `1950` = round(Year_1950, 1),     `2023` = round(Year_2023, 1),     `Gain (years)` = round(Year_2023 - Year_1950, 1),     `% Increase` = paste0(round(((Year_2023 - Year_1950) / Year_1950) * 100, 1), "%")   ) |>   dplyr::select(Entity, `1950`, `2023`, `Gain (years)`, `% Increase`)  knitr::kable(gain_table,              caption = "Life Expectancy: 1950 vs 2023 by Entity",              align = c("l", "c", "c", "c", "c"))} ``
+
+China's life expectancy rose from **43.8 years in 1950** to **77.9 years in 2023** — a gain of over **34 years**, the largest proportional increase of any entity in the dataset. By 2023, China **surpasses the World average (73.2)** and sits **above the Upper-Middle-Income Countries benchmark (75.9)**, strongly suggesting China has converged with developed-country health outcomes.
+
+------------------------------------------------------------------------
+
+## Which Countries Show Fertility Trends Most Similar to China?
+
+```{r warning=FALSE, message=FALSE} library(tidyverse)  fertility <- read.csv("children-per-woman-un.csv", check.names = FALSE) names(fertility)[4] <- "fertility_rate"  # China's 2023 fertility rate china_rate <- fertility |>   dplyr::filter(Entity == "China") |>   dplyr::pull(fertility_rate)  # Calculate absolute difference from China's rate for all countries fertility_diff <- fertility |>   dplyr::filter(Entity != "China") |>   dplyr::mutate(diff_from_china = abs(fertility_rate - china_rate)) |>   dplyr::arrange(diff_from_china) |>   dplyr::slice_head(n = 10)  # Select comparison countries (top 5 closest + China) comparison_countries <- c("China", fertility_diff$Entity[1:5])  fertility_compare <- fertility |>   dplyr::filter(Entity %in% comparison_countries) |>   dplyr::mutate(Entity = forcats::fct_reorder(Entity, fertility_rate))  ggplot2::ggplot(fertility_compare,                 ggplot2::aes(x = Entity, y = fertility_rate, fill = Entity == "China")) +   ggplot2::geom_col(show.legend = FALSE) +   ggplot2::geom_hline(yintercept = china_rate, linetype = "dashed", colour = "#e74c3c", linewidth = 0.8) +   ggplot2::annotate("text", x = 1, y = china_rate + 0.04,                     label = paste0("China: ", china_rate), colour = "#e74c3c", size = 4, hjust = 0) +   ggplot2::scale_fill_manual(values = c("grey70", "#e74c3c")) +   ggplot2::labs(     title = "Countries with Fertility Rates Most Similar to China (2023)",     subtitle = "Top 5 closest countries by absolute difference in fertility rate",     x = "Country",     y = "Fertility Rate (children per woman)",     caption = "Data Source: UN, World Population Prospects (2024) – processed by Our World in Data"   ) +   ggplot2::theme_minimal(base_size = 16) +   ggplot2::theme(     plot.title = ggplot2::element_text(face = "bold", size = 16, hjust = 0.5),     plot.subtitle = ggplot2::element_text(size = 12, hjust = 0.5, colour = "grey40"),     axis.title = ggplot2::element_text(face = "bold"),     panel.grid.major.x = ggplot2::element_blank(),     panel.grid.minor = ggplot2::element_blank()   )}
+```
+
+------------------------------------------------------------------------
+
+## Pattern Similarity: Fertility Rate Distribution Compared to China
+
+```{r warning=FALSE, message=FALSE} library(tidyverse)  fertility <- read.csv("children-per-woman-un.csv", check.names = FALSE) names(fertility)[4] <- "fertility_rate"  china_rate <- fertility |>   dplyr::filter(Entity == "China") |>   dplyr::pull(fertility_rate)  # Select top 5 closest + China for a grouped comparison close_countries <- c("China", "Ukraine", "South Korea", "Taiwan", "Puerto Rico", "Singapore")  fertility_compare <- fertility |>   dplyr::filter(Entity %in% close_countries) |>   dplyr::mutate(     diff = abs(fertility_rate - china_rate),     Entity = forcats::fct_reorder(Entity, fertility_rate, .desc = TRUE),     highlight = dplyr::if_else(Entity == "China", "China", "Comparison Country")   )  ggplot2::ggplot(fertility_compare,                 ggplot2::aes(x = Entity, y = fertility_rate,                              colour = highlight, group = 1)) +   ggplot2::geom_point(size = 6) +   ggplot2::geom_segment(ggplot2::aes(xend = Entity, y = 0, yend = fertility_rate),                         linewidth = 1.2) +   ggplot2::geom_text(ggplot2::aes(label = round(fertility_rate, 3)),                      vjust = -1, size = 4.5, fontface = "bold") +   ggplot2::scale_colour_manual(values = c("China" = "#e74c3c", "Comparison Country" = "#2980b9")) +   ggplot2::labs(     title = "Fertility Rate Pattern Similarity to China (2023)",     subtitle = "Countries ranked by proximity to China's fertility rate of 0.999",     x = "Country",     y = "Fertility Rate (children per woman)",     colour = NULL,     caption = "Data Source: UN, World Population Prospects (2024) – processed by Our World in Data"   ) +   ggplot2::theme_minimal(base_size = 16) +   ggplot2::theme(     plot.title = ggplot2::element_text(face = "bold", size = 16, hjust = 0.5),     plot.subtitle = ggplot2::element_text(size = 12, hjust = 0.5, colour = "grey40"),     legend.position = "top",     panel.grid.major.x = ggplot2::element_blank()   )}
+```
+
+------------------------------------------------------------------------
+
+## Key Finding: Countries Most Similar to China in Fertility
+
+```{r warning=FALSE, message=FALSE} library(tidyverse)  fertility <- read.csv("children-per-woman-un.csv", check.names = FALSE) names(fertility)[4] <- "fertility_rate"  china_rate <- fertility |>   dplyr::filter(Entity == "China") |>   dplyr::pull(fertility_rate)  # Summary table: 10 closest countries fertility |>   dplyr::filter(Entity != "China") |>   dplyr::mutate(diff_from_china = round(abs(fertility_rate - china_rate), 4)) |>   dplyr::arrange(diff_from_china) |>   dplyr::slice_head(n = 10) |>   dplyr::select(Country = Entity, `Fertility Rate` = fertility_rate, `Difference from China` = diff_from_china) |>   knitr::kable(caption = "Top 10 Countries with Fertility Rates Closest to China (2023)",                align = c("l", "c", "c"))}
+```
+
+China's 2023 fertility rate of **0.999** places it among the world's lowest. **Ukraine (0.977)**, **South Korea (0.720)**, **Taiwan (0.870)**, **Puerto Rico (0.941)** and **Singapore (0.943)** show the most similar fertility patterns — all experiencing severe demographic transitions driven by urbanisation, high costs of living, and shifting social norms.
+
+------------------------------------------------------------------------
+
+## Summary & Conclusions
+
+**Question 1: Has China reached life expectancy comparable to developed countries?**
+
+**Yes.** China's 2023 life expectancy of **77.9 years** exceeds both the World average (73.2) and the Upper-Middle-Income Countries benchmark (75.9). China's gain of 34+ years since 1950 is extraordinary — driven by healthcare investment, poverty reduction, and improved nutrition. China now sits firmly in the range associated with high-income, developed nations.
+
+**Question 2: Which countries show fertility trends most similar to China?**
+
+China's fertility rate of **0.999 children per woman (2023)** is among the world's lowest, reflecting decades of the one-child policy and rising urbanisation. The most similar countries are:
+
+-   🇺🇦 **Ukraine** (0.977) — closest match
+-   🇸🇬 **Singapore** (0.943)
+-   🇵🇷 **Puerto Rico** (0.941)
+-   🇹🇼 **Taiwan** (0.870)
+-   🇰🇷 **South Korea** (0.720)
+
+All share rapid economic development, high urbanisation, and shifting attitudes toward family formation.
