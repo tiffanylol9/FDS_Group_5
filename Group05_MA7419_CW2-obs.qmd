@@ -53,11 +53,264 @@ UNESCO Institute for Statistics (2025) – with minor processing by Our World in
 
 UNDP, Human Development Report (2025) – with minor processing by Our World in Data
 
-UNDP, Human Development Report (2025) – with minor processing by Our World in Data
+UNDP, Human Development Report (2025) – with minor processing by Our World in Data\
 
-### Post-Secondary Education
+### Post-Secondary Education  
+
+
+```{r include=FALSE}
+library(tidyverse)
+
+# Reading the life expectancy dataset
+life_exp <- read.csv("life-expectancy.csv", check.names = FALSE)
+
+# Rename 4th column
+names(life_exp)[4] <- "life_expectancy"
+
+# Check entities and year range
+table(life_exp$Entity)
+range(life_exp$Year, na.rm = TRUE)
+sum(is.na(life_exp$life_expectancy))
+```
+
+```{r include=FALSE}
+# Reading the fertility dataset
+fertility <- read.csv("children-per-woman-un.csv", check.names = FALSE)
+
+# Rename the 4th column for clarity
+names(fertility)[4] <- "fertility_rate"
+
+# Check structure
+str(fertility)
+range(fertility$Year, na.rm = TRUE)
+sum(is.na(fertility$fertility_rate))
+```
+
+## Has China Reached Life Expectancy Levels Comparable to Developed Countries?
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+
+life_exp <- read.csv("life-expectancy.csv", check.names = FALSE)
+names(life_exp)[4] <- "life_expectancy"
+
+# Filter from 1950 onwards for a clean modern comparison
+life_exp_filtered <- life_exp |>
+  dplyr::filter(Year >= 1950) |>
+  dplyr::mutate(
+    Entity = dplyr::recode(Entity,
+      "Upper-middle-income countries" = "Upper-Middle-Income Countries")
+  )
+
+ggplot2::ggplot(life_exp_filtered,
+                ggplot2::aes(x = Year, y = life_expectancy,
+                             colour = Entity)) +
+  ggplot2::geom_line(ggplot2::aes(linewidth = Entity == "China")) +
+  ggplot2::scale_linewidth_manual(values = c("TRUE" = 1.4, "FALSE" = 0.7),
+                                  guide = "none") +
+  ggplot2::scale_colour_brewer(palette = "Set1") +
+  ggplot2::scale_x_continuous(breaks = seq(1950, 2023, by = 10)) +
+  ggplot2::labs(
+    title = "Life Expectancy Over Time: China vs Global Benchmarks",
+    subtitle = "1950-2023",
+    x = "Year",
+    y = "Life Expectancy (years)",
+    colour = "Entity",
+    caption = "Data Source: Human Mortality Database; UN World Population Prospects (2024) – processed by Our World in Data"
+  ) +
+  ggplot2::theme_minimal(base_size = 16) +
+  ggplot2::theme(
+    plot.title = ggplot2::element_text(face = "bold", size = 16, hjust = 0.5),
+    plot.subtitle = ggplot2::element_text(size = 12, hjust = 0.5, colour = "grey40"),
+    legend.position = "bottom",
+    panel.grid.minor = ggplot2::element_blank(),
+    panel.grid.major.x = ggplot2::element_blank()
+  )
+```
+
+China's life expectancy rose from **43.8 years in 1950** to **77.9 years in 2023** — a gain of over **34 years**, the largest proportional increase of any entity in the dataset. By 2023, China **surpasses the World average (73.2)** and sits **above the Upper-Middle-Income Countries benchmark (75.9)**, strongly suggesting China has converged with developed-country health outcomes.
+
+
+
+## Key Finding: Countries Most Similar to China in Fertility
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+
+fertility <- read.csv("children-per-woman-un.csv", check.names = FALSE)
+names(fertility)[4] <- "fertility_rate"
+
+china_rate <- fertility |>
+  dplyr::filter(Entity == "China") |>
+  dplyr::pull(fertility_rate)
+
+# Summary table: 10 closest countries
+fertility |>
+  dplyr::filter(Entity != "China") |>
+  dplyr::mutate(diff_from_china = round(abs(fertility_rate - china_rate), 4)) |>
+  dplyr::arrange(diff_from_china) |>
+  dplyr::slice_head(n = 10) |>
+  dplyr::select(Country = Entity, `Fertility Rate` = fertility_rate, `Difference from China` = diff_from_china) |>
+  knitr::kable(caption = "Top 10 Countries with Fertility Rates Closest to China (2023)",
+               align = c("l", "c", "c"))
+```
+China's 2023 fertility rate of **0.999** places it among the world's lowest. **Ukraine (0.977)**, **South Korea (0.720)**, **Taiwan (0.870)**, **Puerto Rico (0.941)** and **Singapore (0.943)** show the most similar fertility patterns — all experiencing severe demographic transitions driven by urbanisation, high costs of living, and shifting social norms.
+
+
+## How does China’s healthcare spending as a share of GDP compare with the United States, Germany, and Afghanistan?
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+
+articles <- read.csv(
+  "scientific-and-technical-journal-articles.csv",
+  check.names = FALSE
+)
+
+names(articles)[4] <- "journal_articles"
+
+compare_data <- articles %>%
+  filter(
+    Entity %in% c("China", "United States", "Germany", "India", "Saudi Arabia"),
+    Year >= 2000,
+    Year <= 2022
+  ) %>%
+  mutate(
+    Entity = factor(Entity, levels = c("China", "United States", "Germany", "India", "Saudi Arabia"))
+  )
+
+ggplot(compare_data, aes(x = Year, y = journal_articles, color = Entity)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 1.8) +
+  scale_x_continuous(breaks = seq(2000, 2022, by = 5)) +
+  scale_y_continuous(labels = scales::label_comma()) +
+  labs(
+    title = "China compared with selected major economies",
+    subtitle = "(2000–2022)",
+    x = "Year",
+    y = "Number of journal articles",
+    color = "Country",
+    caption = "Data Source: World Bank / Our World in Data"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 16, hjust = 0.5),
+    plot.subtitle = element_text(size = 11, hjust = 0.5, color = "grey30"),
+    axis.title = element_text(face = "bold", size = 11),
+    axis.text = element_text(size = 9, color = "grey20"),
+    legend.title = element_text(face = "bold", size = 9),
+    legend.text = element_text(size = 8),
+    legend.position = "right",
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(linewidth = 0.3, color = "grey85")
+  )
+```
+
+
+Analysis:
+
+This chart compares healthcare spending as a share of GDP in China, the United States, Germany, and Afghanistan between 2000 and 2022. The United States remains consistently high across the whole period, showing that healthcare takes up a very large share of its economy. Germany is also relatively high, but lower and more stable than the United States.
+
+China stays much lower than both the United States and Germany throughout the period. Although China’s healthcare spending rises gradually over time, it remains close to 5% of GDP by 2022, which suggests a more moderate level of health expenditure relative to the size of its economy.
+
+Afghanistan shows the most dramatic change. Its healthcare spending increases sharply, especially after 2020, and becomes the highest among the four countries by 2022. This sharp rise stands out strongly compared with the steadier patterns seen in the other countries.
+
+## How Has PM2.5 Air Pollution Changed in China and Its Neighbouring Countries?
+```{r}
+library(tidyverse)
+
+air <- read.csv("pm25-air-pollution.csv")
+
+# Filter data
+air_clean <- air %>%
+  filter(
+    Entity %in% c("China","India","Nepal","Bangladesh","Pakistan"),
+    Year >= 2010 & Year <= 2019
+  ) %>%
+  rename(pm25 = 4)
+
+# Plot
+ggplot(air_clean, aes(x = Year, y = pm25, color = Entity, group = Entity)) +
+  
+  # Thin lines
+  geom_line(linewidth = 0.9) +
+  
+  # Smaller points
+  geom_point(size = 2) +
+  
+  labs(
+    title = "PM2.5 Air Pollution in China and Neighbouring Countries",
+    subtitle = "2010–2019",
+    x = "Year",
+    y = "PM2.5 (µg/m³)",
+    color = "Country"
+  ) +
+  
+  scale_x_continuous(breaks = 2010:2019) +
+  
+  # 🎨 Better soft colors
+  scale_color_manual(values = c(
+    "China" = "#D55E00",       # soft red-orange
+    "India" = "#0072B2",       # blue
+    "Pakistan" = "#009E73",    # green
+    "Bangladesh" = "#E69F00",  # mustard
+    "Nepal" = "#CC79A7"        # soft purple
+  )) +
+  
+  theme_minimal(base_size = 14) +
+  
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "bottom",
+    panel.grid.minor = element_blank()   # cleaner grid
+  )
+```
+
+PM2.5 refers to fine air pollution particles that can enter the lungs and harm human health. The graph shows trends in China and neighbouring countries—India, Pakistan, Bangladesh, and Nepal—between 2010 and 2019. China’s pollution rises and peaks around 2013, then declines significantly, suggesting effective policies and control measures.
+
+In contrast, India and Pakistan maintain consistently high PM2.5 levels with only small changes, indicating ongoing pollution problems. Bangladesh shows relatively stable but moderately high levels, while Nepal has lower levels but is still affected.
+
+Overall, the graph shows that although China has improved its air quality, neighbouring countries continue to face serious pollution issues. This highlights that air pollution is a regional problem and requires cooperation between countries to reduce its impact on public health.
+
+
+
+
+
+
+```{r include=FALSE}
+library(tidyverse)
+
+# Reading the life expectancy dataset
+life_exp <- read.csv("life-expectancy.csv", check.names = FALSE)
+
+# Rename 4th column
+names(life_exp)[4] <- "life_expectancy"
+
+# Check entities and year range
+table(life_exp$Entity)
+range(life_exp$Year, na.rm = TRUE)
+sum(is.na(life_exp$life_expectancy))
+# Reading the fertility dataset
+fertility <- read.csv("children-per-woman-un.csv", check.names = FALSE)
+
+# Rename the 4th column for clarity
+names(fertility)[4] <- "fertility_rate"
+
+# Check structure
+str(fertility)
+range(fertility$Year, na.rm = TRUE)
+sum(is.na(fertility$fertility_rate))
+```
+
+
+
+
+
+###   
 
 ```{r}
+library(janitor)
+library(RColorBrewer)
 #Importing physicians csv file
 doctors_per_1000 <- read.csv("physicians-per-1000-people.csv")
 
@@ -69,7 +322,7 @@ names(doctors_per_1000)[4] <- "physicians"
 
 ```
 
-```{r}
+```{r include=FALSE}
 #Filtering out the rows of countries we don't want to use. They're not "Giants" economically
 table(doctors_per_1000$Entity)
 
@@ -88,7 +341,7 @@ doctors_per_1000 <- doctors_per_1000 |>
 #Left with all of the "Giant" Countries with data 
 ```
 
-```{r}
+```{r include=FALSE}
 #Calculating percentage difference between China 2010 and China 2020
 
 china_2011 <- doctors_per_1000 |>
@@ -112,6 +365,53 @@ ggplot2::ggplot(doctors_per_1000, ggplot2::aes(x = factor(Year), y = physicians,
 This Chart reveals that China's Grown in physician density between 2011 and 2020 was remarkable. However, compared to the other "economic giants" there is a significant difference in amounts. Starting the decade with the lowest recorded density amoug the giants, China consistently expanded its medical workforce, almost doubling its figures by 2020 (60.6% increase).
 
 Despite this, China still lags behind the United States and the United Kingdom, who sustain higher physician-to-population ratios. While China has overtaken India and (almost) Japan, it's "giant" economic status is not yet matched by the per-capita healthcare resources seen in Western peers, suggesting a continuing need for investment in the medical workforce.
+
+
+
+```{r}
+#loading mental health datasets
+deaths_rates_mental_health_substance <- read.csv("death-rates-from-mental-and-substance-disorders-by-age-who.csv")
+```
+
+## China's Mental Health
+
+```{r}
+#using janitor function to clean column titles
+deaths_rates_mental_health_substance <- clean_names(deaths_rates_mental_health_substance)
+
+names(deaths_rates_mental_health_substance)[4] <- "0 - 4 years"
+names(deaths_rates_mental_health_substance)[5] <- "5 - 14 years"
+names(deaths_rates_mental_health_substance)[6] <- "15 - 49 years"
+names(deaths_rates_mental_health_substance)[7] <- "50 - 60 years"
+names(deaths_rates_mental_health_substance)[8] <- "+70 years"
+
+#Removing a column
+deaths_rates_mental_health_substance <- deaths_rates_mental_health_substance |> mutate(all_ages_average = NULL)
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+# Data
+slices <- c(0.000745181, 2.254992, 2.920852, 2.918692)
+slices_percent <- slices / sum(slices) * 100
+# Labels with percentages in brackets
+lbls <- c("5-14", "15-49", "50-60", "+70")
+lbls <- paste(lbls, "(", round(slices_percent, 2), "%)", sep="")
+# Colors
+colors <- brewer.pal(length(lbls), "Set2")
+# Pie chart
+pie(slices, labels = lbls,
+main = "% of Deaths from Mental Health and Substance Abuse by Age in China (2021)",
+col = colors)
+# Source
+mtext("Source: World Health Organization (2024) – processed by Our World in Data",
+side = 1, line = 4, adj = 1, cex=0.7)
+```
+
+The sensitive topic of fatalities attributed to Mental Heath garnered minimal public datasets. However, after cleaning column names with the janitor package, and Base R we created a table with the tidyr package to change the shape of our data, and the knit package for polished visuals.
+
+Pie chart was developed with Base R functions. The distribution suggests that in China, the intersection of aging and mental health is a primary health concern with fatalities increasing by age. This sparks a critical need for targeted interventions tailored more for middle-aged and elderly populations, as the demographic as the most effected.
+
 
 ## How does China compare with selected countries in post-secondary educational attainment?
 
@@ -214,4 +514,10 @@ ggplot(compare_data, aes(x = Year, y = journal_articles, color = Entity)) +
   )
 ```
 
+
 China experienced the fastest growth in scientific and technical journal article output over the period shown. While the United States started as the leading publicist, China expanded rapidly and overtook it in the later years. Despite increasing their output, Germany and India only showed moderate development, and Saudi Arabia remained at a lower level throughout. Overall, the chart shows that China has become a leading global producer of scientific research.
+
+
+
+
+
