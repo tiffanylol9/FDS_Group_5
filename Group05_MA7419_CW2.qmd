@@ -7,6 +7,7 @@ title-slide-attributes:
 
 editor: visual
 ---
+
 ```{r}
 knitr::opts_chunk$set(error = TRUE)
 ```

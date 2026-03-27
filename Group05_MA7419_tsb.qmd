@@ -1,0 +1,150 @@
+---
+title: "Exploring China's Global and Regional Health and Educational Data"
+author: "Presented by: Group 05"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    width: 1400
+    height: 900
+title-slide-attributes: 
+  data-background-image: 23833.jpg
+editor: visual
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+library(tidyverse)
+```
+
+------------------------------------------------------------------------
+
+## How does China's education spending compare to other major economies?
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+spending <- read.csv("~/Desktop/FDS_Group_5/Data/education-spending .csv")
+colnames(spending) <- c("Entity", "Code", "Year", "Spending_pct_GDP")
+
+countries <- c("China", "United States", "India", "United Kingdom", "Brazil", "Saudi Arabia")
+
+spending_filtered <- spending |>
+  dplyr::filter(Entity %in% countries) |>
+  dplyr::filter(!is.na(Spending_pct_GDP)) |>
+  dplyr::filter(Year >= 2000, Year <= 2022)
+
+ggplot(spending_filtered, aes(x = Year, y = Spending_pct_GDP, color = Entity)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 1.8) +
+  scale_x_continuous(breaks = seq(2000, 2022, by = 5)) +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  labs(
+    title = "Public Education Spending: China vs Major Economies",
+    subtitle = "(2000–2022)",
+    x = "Year",
+    y = "Education Spending (% of GDP)",
+    color = "Country",
+    caption = "Data Source: Our World in Data"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title    = element_text(face = "bold", size = 16, hjust = 0.5),
+    plot.subtitle = element_text(size = 11, hjust = 0.5, color = "grey30"),
+    axis.title    = element_text(face = "bold", size = 11),
+    axis.text     = element_text(size = 9, color = "grey20"),
+    legend.title  = element_text(face = "bold", size = 9),
+    legend.text   = element_text(size = 8),
+    legend.position = "right",
+    panel.grid.minor   = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(linewidth = 0.3, color = "grey85")
+  )
+```
+
+China's education spending as a share of GDP has gradually increased over the period shown, reflecting sustained government investment. While spending remains moderate compared to the United Kingdom and Brazil, the consistent upward trend highlights a clear policy commitment. Compared to India and Saudi Arabia, China allocates a similar or greater share, making it a notable investor among large developing economies.
+
+------------------------------------------------------------------------
+
+## How does gender equality in education compare between China and selected countries?
+
+```{#| echo: false}
+#| warning: false
+#| message: false
+
+gdi <- read.csv("~/Desktop/FDS_Group_5/Data/gender-development-index.csv")
+colnames(gdi)[1:4] <- c("Entity", "Code", "Year", "GDI")
+
+countries <- c("China", "United States", "India", "United Kingdom", "Brazil", "Saudi Arabia")
+
+gdi_filtered <- gdi |>
+  dplyr::filter(Entity %in% countries) |>
+  dplyr::filter(!is.na(GDI)) |>
+  dplyr::filter(Year >= 2000, Year <= 2022) |>
+  dplyr::mutate(Entity = factor(Entity, levels = countries))
+
+country_colors <- c(
+  "China"          = "#c0392b",
+  "United States"  = "#2980b9",
+  "India"          = "#f39c12",
+  "United Kingdom" = "#8e44ad",
+  "Brazil"         = "#16a085",
+  "Saudi Arabia"   = "#e67e22"
+)
+
+ggplot(gdi_filtered, aes(x = Year, y = GDI, color = Entity, fill = Entity)) +
+  geom_ribbon(aes(ymin = 1, ymax = GDI), alpha = 0.08, color = NA) +  # filled area from GDI=1
+  geom_smooth(se = FALSE, method = "loess", span = 0.4, linewidth = 1.4) +  # smooth lines, no points
+  geom_hline(yintercept = 1, linetype = "dashed", colour = "grey60", linewidth = 0.6) +
+  annotate(
+    "text", x = 2001, y = 1.006,
+    label = "Perfect equality (GDI = 1)",
+    size = 4, colour = "grey50", hjust = 0, fontface = "italic",
+    family = "sans"
+  ) +
+  scale_x_continuous(breaks = seq(2000, 2022, by = 4)) +
+  scale_colour_manual(values = country_colors) +
+  scale_fill_manual(values = country_colors) +
+  labs(
+    title = "Gender Development Index: China vs Selected Countries",
+    subtitle = "2000–2022  ·  GDI = 1 indicates perfect gender equality",
+    x = "Year",
+    y = "Gender Development Index (GDI)",
+    color = NULL,
+    fill  = NULL,
+    caption = "Data Source: UNDP, Human Development Report (2025) via Our World in Data"
+  ) +
+  theme_minimal(base_size = 15, base_family = "sans") +
+  theme(
+    # Title & subtitle
+    plot.title    = element_text(face = "bold", size = 19, hjust = 0, margin = margin(b = 4)),
+    plot.subtitle = element_text(size = 13, hjust = 0, color = "grey40", margin = margin(b = 12)),
+    plot.caption  = element_text(size = 9, color = "grey55", hjust = 1, margin = margin(t = 10)),
+
+    # Axes
+    axis.title   = element_text(face = "bold", size = 13),
+    axis.text    = element_text(size = 11, color = "grey30"),
+    axis.ticks   = element_blank(),
+
+    # Legend
+    legend.position  = "top",
+    legend.text      = element_text(size = 11),
+    legend.key.width = unit(1.5, "cm"),
+    legend.spacing.x = unit(0.3, "cm"),
+
+    # Grid
+    panel.grid.minor   = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(linewidth = 0.35, color = "grey88"),
+
+    # Spacing
+    plot.margin = margin(16, 16, 12, 16)
+  )
+```
+
+China's Gender Development Index has remained consistently close to 1 throughout the period, indicating near parity between women and men in health, education and income. China performs comparably to the United States and United Kingdom, and significantly better than India and Saudi Arabia where gender gaps remain wider. This suggests China's education investment has been broadly inclusive across genders.

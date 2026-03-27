@@ -1,0 +1,313 @@
+Entity,Code,Year,Life expectancy
+Asia,,1770,27.5
+Asia,,1885,27.5
+Asia,,1900,28
+Asia,,1913,28.1
+Asia,,1950,41.9565
+Asia,,1951,42.9587
+Asia,,1952,44.2413
+Asia,,1953,44.8721
+Asia,,1954,45.8386
+Asia,,1955,46.432
+Asia,,1956,46.9368
+Asia,,1957,47.4357
+Asia,,1958,47.9095
+Asia,,1959,44.5468
+Asia,,1960,41.7925
+Asia,,1961,45.2247
+Asia,,1962,49.7055
+Asia,,1963,50.4126
+Asia,,1964,51.0484
+Asia,,1965,50.6535
+Asia,,1966,51.5076
+Asia,,1967,52.2273
+Asia,,1968,53.1207
+Asia,,1969,53.7511
+Asia,,1970,54.0354
+Asia,,1971,53.4391
+Asia,,1972,55.3185
+Asia,,1973,55.9264
+Asia,,1974,56.3798
+Asia,,1975,56.6093
+Asia,,1976,56.9165
+Asia,,1977,57.6246
+Asia,,1978,58.1127
+Asia,,1979,58.9967
+Asia,,1980,59.4646
+Asia,,1981,59.9625
+Asia,,1982,60.4664
+Asia,,1983,60.9438
+Asia,,1984,61.4058
+Asia,,1985,61.8581
+Asia,,1986,62.3815
+Asia,,1987,62.8528
+Asia,,1988,63.2107
+Asia,,1989,63.6586
+Asia,,1990,63.964
+Asia,,1991,64.2319
+Asia,,1992,64.7101
+Asia,,1993,65.0765
+Asia,,1994,65.3933
+Asia,,1995,65.6984
+Asia,,1996,66.0972
+Asia,,1997,66.4603
+Asia,,1998,66.8211
+Asia,,1999,67.1659
+Asia,,2000,67.6072
+Asia,,2001,67.994
+Asia,,2002,68.4026
+Asia,,2003,68.7985
+Asia,,2004,69.0323
+Asia,,2005,69.497
+Asia,,2006,69.9086
+Asia,,2007,70.3012
+Asia,,2008,70.5006
+Asia,,2009,71.0089
+Asia,,2010,71.3792
+Asia,,2011,71.6838
+Asia,,2012,72.042
+Asia,,2013,72.3591
+Asia,,2014,72.7056
+Asia,,2015,72.9697
+Asia,,2016,73.2724
+Asia,,2017,73.4919
+Asia,,2018,73.7937
+Asia,,2019,74.0468
+Asia,,2020,73.6064
+Asia,,2021,72.3714
+Asia,,2022,74.4278
+Asia,,2023,74.5661
+China,CHN,1930,32
+China,CHN,1934,34
+China,CHN,1936,35
+China,CHN,1942,37
+China,CHN,1949,41
+China,CHN,1950,43.8289
+China,CHN,1951,44.5567
+China,CHN,1952,45.3416
+China,CHN,1953,45.9092
+China,CHN,1954,46.763
+China,CHN,1955,47.2366
+China,CHN,1956,47.8067
+China,CHN,1957,48.3776
+China,CHN,1958,48.8336
+China,CHN,1959,40.1699
+China,CHN,1960,33.419
+China,CHN,1961,40.1583
+China,CHN,1962,50.9594
+China,CHN,1963,51.6698
+China,CHN,1964,52.3425
+China,CHN,1965,53.0009
+China,CHN,1966,53.6624
+China,CHN,1967,54.4005
+China,CHN,1968,55.1908
+China,CHN,1969,55.9878
+China,CHN,1970,56.8241
+China,CHN,1971,57.7312
+China,CHN,1972,58.5789
+China,CHN,1973,59.4961
+China,CHN,1974,60.2408
+China,CHN,1975,60.952
+China,CHN,1976,61.225
+China,CHN,1977,62.458
+China,CHN,1978,63.1016
+China,CHN,1979,63.7043
+China,CHN,1980,64.2433
+China,CHN,1981,64.7779
+China,CHN,1982,65.2494
+China,CHN,1983,65.7285
+China,CHN,1984,66.1478
+China,CHN,1985,66.5319
+China,CHN,1986,66.8873
+China,CHN,1987,67.263
+China,CHN,1988,67.6071
+China,CHN,1989,67.9303
+China,CHN,1990,68.1547
+China,CHN,1991,68.6099
+China,CHN,1992,69.0587
+China,CHN,1993,69.4924
+China,CHN,1994,69.8355
+China,CHN,1995,70.3631
+China,CHN,1996,70.8225
+China,CHN,1997,71.2271
+China,CHN,1998,71.6014
+China,CHN,1999,71.9519
+China,CHN,2000,72.2885
+China,CHN,2001,72.6755
+China,CHN,2002,73.0339
+China,CHN,2003,73.3853
+China,CHN,2004,73.7274
+China,CHN,2005,74.085
+China,CHN,2006,74.4037
+China,CHN,2007,74.7886
+China,CHN,2008,74.8333
+China,CHN,2009,75.3174
+China,CHN,2010,75.6679
+China,CHN,2011,75.8891
+China,CHN,2012,76.2
+China,CHN,2013,76.4521
+China,CHN,2014,76.7143
+China,CHN,2015,76.9755
+China,CHN,2016,77.214
+China,CHN,2017,77.2353
+China,CHN,2018,77.709
+China,CHN,2019,77.9396
+China,CHN,2020,78.0191
+China,CHN,2021,78.1166
+China,CHN,2022,78.2021
+China,CHN,2023,77.9529
+Upper-middle-income countries,,1950,45.4322
+Upper-middle-income countries,,1951,46.0937
+Upper-middle-income countries,,1952,46.9814
+Upper-middle-income countries,,1953,47.648
+Upper-middle-income countries,,1954,48.4808
+Upper-middle-income countries,,1955,49.0944
+Upper-middle-income countries,,1956,49.9043
+Upper-middle-income countries,,1957,50.4164
+Upper-middle-income countries,,1958,50.9793
+Upper-middle-income countries,,1959,45.7157
+Upper-middle-income countries,,1960,41.6003
+Upper-middle-income countries,,1961,46.5579
+Upper-middle-income countries,,1962,53.1323
+Upper-middle-income countries,,1963,53.8115
+Upper-middle-income countries,,1964,54.4218
+Upper-middle-income countries,,1965,54.2525
+Upper-middle-income countries,,1966,55.3159
+Upper-middle-income countries,,1967,56.0781
+Upper-middle-income countries,,1968,56.6868
+Upper-middle-income countries,,1969,57.2604
+Upper-middle-income countries,,1970,57.8505
+Upper-middle-income countries,,1971,58.6374
+Upper-middle-income countries,,1972,59.2948
+Upper-middle-income countries,,1973,59.986
+Upper-middle-income countries,,1974,60.5377
+Upper-middle-income countries,,1975,61.0438
+Upper-middle-income countries,,1976,61.305
+Upper-middle-income countries,,1977,62.1489
+Upper-middle-income countries,,1978,62.6427
+Upper-middle-income countries,,1979,63.1002
+Upper-middle-income countries,,1980,63.5078
+Upper-middle-income countries,,1981,63.9784
+Upper-middle-income countries,,1982,64.4602
+Upper-middle-income countries,,1983,64.9284
+Upper-middle-income countries,,1984,65.3032
+Upper-middle-income countries,,1985,65.744
+Upper-middle-income countries,,1986,66.3409
+Upper-middle-income countries,,1987,66.7021
+Upper-middle-income countries,,1988,66.9234
+Upper-middle-income countries,,1989,67.2526
+Upper-middle-income countries,,1990,67.4347
+Upper-middle-income countries,,1991,67.782
+Upper-middle-income countries,,1992,67.978
+Upper-middle-income countries,,1993,68.0341
+Upper-middle-income countries,,1994,68.1878
+Upper-middle-income countries,,1995,68.6033
+Upper-middle-income countries,,1996,69.0915
+Upper-middle-income countries,,1997,69.5085
+Upper-middle-income countries,,1998,69.8309
+Upper-middle-income countries,,1999,69.931
+Upper-middle-income countries,,2000,70.1848
+Upper-middle-income countries,,2001,70.4739
+Upper-middle-income countries,,2002,70.7067
+Upper-middle-income countries,,2003,70.9514
+Upper-middle-income countries,,2004,71.0767
+Upper-middle-income countries,,2005,71.5889
+Upper-middle-income countries,,2006,71.9828
+Upper-middle-income countries,,2007,72.4004
+Upper-middle-income countries,,2008,72.6168
+Upper-middle-income countries,,2009,73.0789
+Upper-middle-income countries,,2010,73.3493
+Upper-middle-income countries,,2011,73.741
+Upper-middle-income countries,,2012,74.0892
+Upper-middle-income countries,,2013,74.3797
+Upper-middle-income countries,,2014,74.6384
+Upper-middle-income countries,,2015,74.9065
+Upper-middle-income countries,,2016,75.1029
+Upper-middle-income countries,,2017,75.2946
+Upper-middle-income countries,,2018,75.6241
+Upper-middle-income countries,,2019,75.8229
+Upper-middle-income countries,,2020,75.0315
+Upper-middle-income countries,,2021,74.338
+Upper-middle-income countries,,2022,75.7306
+Upper-middle-income countries,,2023,75.8812
+World,OWID_WRL,1770,28.5
+World,OWID_WRL,1800,28.5
+World,OWID_WRL,1820,29
+World,OWID_WRL,1850,29.3
+World,OWID_WRL,1870,29.7
+World,OWID_WRL,1900,32
+World,OWID_WRL,1913,34.1
+World,OWID_WRL,1950,46.3944
+World,OWID_WRL,1951,47.1259
+World,OWID_WRL,1952,48.2183
+World,OWID_WRL,1953,48.809
+World,OWID_WRL,1954,49.6514
+World,OWID_WRL,1955,50.2055
+World,OWID_WRL,1956,50.7373
+World,OWID_WRL,1957,51.0636
+World,OWID_WRL,1958,51.6151
+World,OWID_WRL,1959,49.5818
+World,OWID_WRL,1960,47.8198
+World,OWID_WRL,1961,50.3459
+World,OWID_WRL,1962,53.2416
+World,OWID_WRL,1963,53.7161
+World,OWID_WRL,1964,54.2603
+World,OWID_WRL,1965,53.9975
+World,OWID_WRL,1966,54.5644
+World,OWID_WRL,1967,55.0678
+World,OWID_WRL,1968,55.6181
+World,OWID_WRL,1969,55.9999
+World,OWID_WRL,1970,56.2664
+World,OWID_WRL,1971,56.0193
+World,OWID_WRL,1972,57.2155
+World,OWID_WRL,1973,57.6923
+World,OWID_WRL,1974,58.0614
+World,OWID_WRL,1975,58.2681
+World,OWID_WRL,1976,58.5754
+World,OWID_WRL,1977,59.1539
+World,OWID_WRL,1978,59.5129
+World,OWID_WRL,1979,60.1571
+World,OWID_WRL,1980,60.502
+World,OWID_WRL,1981,60.9187
+World,OWID_WRL,1982,61.3435
+World,OWID_WRL,1983,61.5211
+World,OWID_WRL,1984,61.8663
+World,OWID_WRL,1985,62.2092
+World,OWID_WRL,1986,62.7297
+World,OWID_WRL,1987,63.1809
+World,OWID_WRL,1988,63.3672
+World,OWID_WRL,1989,63.7817
+World,OWID_WRL,1990,63.955
+World,OWID_WRL,1991,64.0642
+World,OWID_WRL,1992,64.2879
+World,OWID_WRL,1993,64.4334
+World,OWID_WRL,1994,64.2995
+World,OWID_WRL,1995,64.8817
+World,OWID_WRL,1996,65.1995
+World,OWID_WRL,1997,65.5406
+World,OWID_WRL,1998,65.7408
+World,OWID_WRL,1999,66.0412
+World,OWID_WRL,2000,66.4333
+World,OWID_WRL,2001,66.7531
+World,OWID_WRL,2002,67.068
+World,OWID_WRL,2003,67.4015
+World,OWID_WRL,2004,67.7449
+World,OWID_WRL,2005,68.1405
+World,OWID_WRL,2006,68.6137
+World,OWID_WRL,2007,69.0316
+World,OWID_WRL,2008,69.3017
+World,OWID_WRL,2009,69.6812
+World,OWID_WRL,2010,70.089
+World,OWID_WRL,2011,70.4033
+World,OWID_WRL,2012,70.824
+World,OWID_WRL,2013,71.1417
+World,OWID_WRL,2014,71.4038
+World,OWID_WRL,2015,71.606
+World,OWID_WRL,2016,71.8768
+World,OWID_WRL,2017,72.067
+World,OWID_WRL,2018,72.3885
+World,OWID_WRL,2019,72.6093
+World,OWID_WRL,2020,71.9166
+World,OWID_WRL,2021,70.865
+World,OWID_WRL,2022,72.6398
+World,OWID_WRL,2023,73.1694

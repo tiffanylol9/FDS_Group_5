@@ -1,0 +1,111 @@
+Entity,Code,Year,Death rate from mental and substance use disorders among both sexes
+China,CHN,2000,3.09
+China,CHN,2001,2.92
+China,CHN,2002,2.78
+China,CHN,2003,2.64
+China,CHN,2004,2.58
+China,CHN,2005,2.51
+China,CHN,2006,2.41
+China,CHN,2007,2.36
+China,CHN,2008,2.36
+China,CHN,2009,2.32
+China,CHN,2010,2.27
+China,CHN,2011,2.19
+China,CHN,2012,2.11
+China,CHN,2013,2.06
+China,CHN,2014,2.03
+China,CHN,2015,2.01
+China,CHN,2016,1.99
+China,CHN,2017,1.99
+China,CHN,2018,2.02
+China,CHN,2019,2.04
+China,CHN,2020,2.09
+China,CHN,2021,2.08
+Saudi Arabia,SAU,2000,0.1
+Saudi Arabia,SAU,2001,0.1
+Saudi Arabia,SAU,2002,0.1
+Saudi Arabia,SAU,2003,0.1
+Saudi Arabia,SAU,2004,0.13
+Saudi Arabia,SAU,2005,0.14
+Saudi Arabia,SAU,2006,0.15
+Saudi Arabia,SAU,2007,0.15
+Saudi Arabia,SAU,2008,0.16
+Saudi Arabia,SAU,2009,0.15
+Saudi Arabia,SAU,2010,0.13
+Saudi Arabia,SAU,2011,0.11
+Saudi Arabia,SAU,2012,0.09
+Saudi Arabia,SAU,2013,0.09
+Saudi Arabia,SAU,2014,0.09
+Saudi Arabia,SAU,2015,0.09
+Saudi Arabia,SAU,2016,0.09
+Saudi Arabia,SAU,2017,0.1
+Saudi Arabia,SAU,2018,0.11
+Saudi Arabia,SAU,2019,0.11
+Saudi Arabia,SAU,2020,0.11
+Saudi Arabia,SAU,2021,0.09
+United Kingdom,GBR,2000,5.17
+United Kingdom,GBR,2001,5.59
+United Kingdom,GBR,2002,5.16
+United Kingdom,GBR,2003,4.8
+United Kingdom,GBR,2004,5.17
+United Kingdom,GBR,2005,5.31
+United Kingdom,GBR,2006,5.18
+United Kingdom,GBR,2007,5.66
+United Kingdom,GBR,2008,6.17
+United Kingdom,GBR,2009,5.95
+United Kingdom,GBR,2010,6.07
+United Kingdom,GBR,2011,5.53
+United Kingdom,GBR,2012,5.5
+United Kingdom,GBR,2013,5.95
+United Kingdom,GBR,2014,6.91
+United Kingdom,GBR,2015,7.49
+United Kingdom,GBR,2016,7.9
+United Kingdom,GBR,2017,8.08
+United Kingdom,GBR,2018,9.71
+United Kingdom,GBR,2019,9.62
+United Kingdom,GBR,2020,10.37
+United Kingdom,GBR,2021,11.24
+United States,USA,2000,7.84
+United States,USA,2001,8.36
+United States,USA,2002,9.6
+United States,USA,2003,10.34
+United States,USA,2004,10.87
+United States,USA,2005,11.84
+United States,USA,2006,13.13
+United States,USA,2007,12.97
+United States,USA,2008,13.18
+United States,USA,2009,13.27
+United States,USA,2010,13.66
+United States,USA,2011,14.71
+United States,USA,2012,14.83
+United States,USA,2013,15.68
+United States,USA,2014,16.72
+United States,USA,2015,18.67
+United States,USA,2016,22.3
+United States,USA,2017,24.32
+United States,USA,2018,23.55
+United States,USA,2019,24.83
+United States,USA,2020,33.26
+United States,USA,2021,38.09
+World,OWID_WRL,2000,3.8943079
+World,OWID_WRL,2001,3.924101
+World,OWID_WRL,2002,3.9873965
+World,OWID_WRL,2003,4.021938
+World,OWID_WRL,2004,4.021026
+World,OWID_WRL,2005,4.0824814
+World,OWID_WRL,2006,3.9062986
+World,OWID_WRL,2007,3.7667196
+World,OWID_WRL,2008,3.7179737
+World,OWID_WRL,2009,3.5490534
+World,OWID_WRL,2010,3.4888573
+World,OWID_WRL,2011,3.4137225
+World,OWID_WRL,2012,3.3430347
+World,OWID_WRL,2013,3.3641064
+World,OWID_WRL,2014,3.4575784
+World,OWID_WRL,2015,3.5291276
+World,OWID_WRL,2016,3.6805742
+World,OWID_WRL,2017,3.7662368
+World,OWID_WRL,2018,3.7594404
+World,OWID_WRL,2019,3.781928
+World,OWID_WRL,2020,4.1455503
+World,OWID_WRL,2021,4.368722
