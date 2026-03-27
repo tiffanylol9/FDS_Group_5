@@ -55,15 +55,11 @@ Annual Publications
 #Importing physicians csv file
 doctors_per_1000 <- read.csv("physicians-per-1000-people.csv")
 
-#Cleaning column names with janitor()
-doctors_per_1000 <- (doctors_per_1000)
-
 #Changing name of final column
 names(doctors_per_1000)[4] <- "physicians"
 
 ```
 
-doctors_per_1000 \<- doctors_per_1000 \|\> mutate(Year = as.numeric(Year)) \|\> filter(Year \> 2010)
 
 ```{r}
 #Filtering out the rows of countries we don't want to use. They're not "Giants" economically
@@ -102,10 +98,11 @@ china_2020 <- doctors_per_1000 |> filter(Entity == "China", Year == 2020) |> dpl
 #Visualising this data in a bar chart
 ggplot2::ggplot(doctors_per_1000, ggplot2::aes(x = factor(Year), y = physicians, fill = Entity)) + ggplot2::geom_col(position = "dodge") + ggplot2::labs(x = "Year", y = "Physicians", title = " Number of Physicians in Economically Giant Countries Over the Years", fill = "Country", caption = "Data Source: Global Health Workforce Statistics, WHO, via World Bank (2026) – processed by Our World in Data") + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1)) + ggplot2::scale_fill_brewer(palette = "Spectral") |> print()
 ```
+To investigate growth in physicians, we employed Base R, and dplyr functions to extract the data from the fist and last year. The bar chart was created by ggplot2 functions.
 
-This Chart reveals that China's Grown in physician density between 2011 and 2020 was remarkable. However, compared to the other "economic giants" there is a significant difference in amounts. Starting the decade with the lowest recorded density amoug the giants, China consistently expanded its medical workforce, almost doubling its figures by 2020 (60.6% increase).
+China's Growth in physician density between 2011 and 2020 was remarkable. However, compared to other "economic giants" there is a significant difference in amounts. Starting the decade with the lowest recorded density, China consistently expanded its medical workforce, almost doubling its figures by 2020 (60.6% increase).
 
-Despite this, China still lags behind the United States and the United Kingdom, who sustain higher physician-to-population ratios. While China has overtaken India and (almost) Japan, it's "giant" economic status is not yet matched by the per-capita healthcare resources seen in Western peers, suggesting a continuing need for investment in the medical workforce.
+China still lags behind the United States and the United Kingdom, who sustain higher physician-to-population ratios. While China has overtaken India and (almost) Japan, it's "giant" economic status has not yet matched the healthcare resources seen in Western nations, suggesting a continuing need for investment in the medical workforce.
 
 ```{r}
 #loading mental health datasets
@@ -116,15 +113,36 @@ deaths_rates_mental_health_substance <- read.csv("death-rates-from-mental-and-su
 #using janitor function to clean column titles
 deaths_rates_mental_health_substance <- clean_names(deaths_rates_mental_health_substance)
 
-names(deaths_rates_mental_health_substance)[4] <- "0 - 4 years"
-names(deaths_rates_mental_health_substance)[5] <- "5 - 14 years"
-names(deaths_rates_mental_health_substance)[6] <- "15 - 49 years"
-names(deaths_rates_mental_health_substance)[7] <- "50 - 60 years"
-names(deaths_rates_mental_health_substance)[8] <- "+70 years"
+names(deaths_rates_mental_health_substance)[1] <- "0 - 4 years"
+names(deaths_rates_mental_health_substance)[2] <- "5 - 14 years"
+names(deaths_rates_mental_health_substance)[3] <- "15 - 49 years"
+names(deaths_rates_mental_health_substance)[4] <- "50 - 60 years"
+names(deaths_rates_mental_health_substance)[5] <- "+70 years"
 
-#Removing a column
-deaths_rates_mental_health_substance <- deaths_rates_mental_health_substance |> mutate(all_ages_average = NULL)
+#Removing a few columns
+deaths_rates_mental_health_substance <- deaths_rates_mental_health_substance |> mutate(all_ages_average = NULL) |> mutate(code = NULL) |> mutate(year = NULL) |> mutate(entity = NULL) |> mutate(all_ages = NULL)
+
 ```
+
+```{r}
+#Comparing age groups across years
+
+#Changing the shape of the data first
+library(tidyr)
+
+death_long <- deaths_rates_mental_health_substance |> pivot_longer(cols = c("0 - 4 years", "5 - 14 years", "15 - 49 years", "50 - 60 years", "+70 years"), names_to = "Age_Group", values_to = "Death_Rate")
+
+#Now comparing Groups
+death_long |> group_by(Age_Group) |> summarise(mean_dr = mean(Death_Rate, na.rm = TRUE))
+```
+
+```{r}
+#Creating a kable for this data
+library(knitr)
+
+death_long |> mutate( "%" = round(Death_Rate/sum(Death_Rate)* 100, 2)) |> kable(caption = "Death Rates by Age Group with Percentages")
+```
+
 
 ```{r}
 
@@ -149,8 +167,8 @@ mtext("Source: World Health Organization (2024) – processed by Our World in Da
       side = 1, line = 4, adj = 1, cex=0.7)
 
 ```
+The sensitive topic of fatalities attributed to Mental Heath garnered minimal public datasets. However, after cleaning column names with the janitor package, and Base R we created a table with the tidyr package to change the shape of our data, and the knit package for polished visuals.
 
+Pie chart was developed with Base R functions.
 
-Based on the 2021 WHO data, deaths in China attributed to mental health and substance abuse are heavily concentrated in the older demographics. Collectively, individuals aged 50 and above account for over 72% of these deaths, with the 50–60 (36.08%) and 70+ (36.05%) cohorts showing almost identical shares.
-
-While the 15–49 age group represents a significant portion at 27.86%, the burden clearly shifts as the population ages. Conversely, the 5–14 demographic shows a negligible impact at only 0.01%. This distribution suggests that in China, the intersection of aging and mental health is a primary health concern, requiring targeted interventions for the middle-aged and elderly populations.
+The distribution suggests that in China, the intersection of aging and mental health is a primary health concern with fatalities increasing by age. This sparks a critical need for targeted interventions tailored more for middle-aged and elderly populations, as the demographic as the most effected.
