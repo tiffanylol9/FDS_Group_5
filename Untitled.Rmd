@@ -1,0 +1,179 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+How has PM2.5 air pollution changed in China compared to its neighbouring countries between 2010 and 2019, and what does this indicate about regional environmental challenges?
+
+```{r}
+library(tidyverse)
+
+air <- read.csv("pm25-air-pollution.csv")
+
+# Filter data
+air_clean <- air %>%
+  filter(
+    Entity %in% c("China","India","Nepal","Bangladesh","Pakistan"),
+    Year >= 2010 & Year <= 2019
+  ) %>%
+  rename(pm25 = 4)
+
+# Plot
+ggplot(air_clean, aes(x = Year, y = pm25, color = Entity, group = Entity)) +
+  
+  # Thin lines
+  geom_line(linewidth = 0.9) +
+  
+  # Smaller points
+  geom_point(size = 2) +
+  
+  labs(
+    title = "PM2.5 Air Pollution in China and Neighbouring Countries",
+    subtitle = "2010–2019",
+    x = "Year",
+    y = "PM2.5 (µg/m³)",
+    color = "Country"
+  ) +
+  
+  scale_x_continuous(breaks = 2010:2019) +
+  
+  # 🎨 Better soft colors
+  scale_color_manual(values = c(
+    "China" = "#D55E00",       # soft red-orange
+    "India" = "#0072B2",       # blue
+    "Pakistan" = "#009E73",    # green
+    "Bangladesh" = "#E69F00",  # mustard
+    "Nepal" = "#CC79A7"        # soft purple
+  )) +
+  
+  theme_minimal(base_size = 14) +
+  
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "bottom",
+    panel.grid.minor = element_blank()   # cleaner grid
+  )
+```
+
+PM2.5 refers to fine air pollution particles that can enter the lungs and harm human health. The graph shows trends in China and neighbouring countries—India, Pakistan, Bangladesh, and Nepal—between 2010 and 2019. China’s pollution rises and peaks around 2013, then declines significantly, suggesting effective policies and control measures.
+
+In contrast, India and Pakistan maintain consistently high PM2.5 levels with only small changes, indicating ongoing pollution problems. Bangladesh shows relatively stable but moderately high levels, while Nepal has lower levels but is still affected.
+
+Overall, the graph shows that although China has improved its air quality, neighbouring countries continue to face serious pollution issues. This highlights that air pollution is a regional problem and requires cooperation between countries to reduce its impact on public health.
+
+How does exposure to unsafe water compare between China and its neighbouring countries, and what does this reveal about differences in access to clean water and sanitation?
+
+
+
+
+How does China’s exposure to unsafe water compare with the top 20 most affected countries in 2019, and what does this reveal about global inequality in access to safe water?
+
+```{r}
+library(tidyverse)
+library(stringr)
+
+
+wash <- read.csv("mortality-rate-attributable-to-wash.csv")
+wash$Entity <- trimws(wash$Entity)
+
+
+wash_2019 <- wash %>%
+  filter(Year == 2019) %>%
+  rename(value = 4) %>%
+  filter(!grepl("World|income|Africa|Asia|Europe|OECD", Entity))
+
+
+top20 <- wash_2019 %>%
+  arrange(desc(value)) %>%
+  slice(1:20)
+
+china <- wash_2019 %>% filter(Entity == "China")
+
+top20 <- bind_rows(top20, china)
+
+
+top20 <- top20 %>%
+  mutate(
+    Entity = str_replace(Entity, "Democratic Republic of Congo", "DR Congo"),
+    Entity = str_replace(Entity, "Central African Republic", "Central African Rep"),
+    Entity = str_replace(Entity, "Cote d'Ivoire", "Côte d'Ivoire")
+  )
+
+
+top20 <- top20 %>%
+  mutate(
+    group = ifelse(Entity == "China", "China", "Others"),
+    label = str_wrap(Entity, width = 20)
+  )
+
+
+top20 <- top20 %>%
+  arrange(value) %>%
+  mutate(label = factor(label, levels = label))
+
+
+p <- ggplot(top20, aes(x = value, y = label)) +
+
+  geom_segment(aes(x = 0, xend = value, yend = label),
+               color = "grey80",
+               linewidth = 1) +
+
+  geom_point(aes(color = group),
+             size = 2) +
+
+  scale_color_manual(values = c(
+    "China" = "#d62828",
+    "Others" = "#6c757d"
+  )) +
+
+  labs(
+    title = "Exposure to Unsafe Water (2019)",
+
+    x = "WASH-related mortality rate",
+    y = NULL,
+    color = NULL
+  ) +
+
+  scale_y_discrete(expand = expansion(mult = c(0.05, 0.1))) +  
+
+  theme_minimal(base_size = 15) +
+
+  theme(
+    plot.title = element_text(face = "bold", size = 18),
+    plot.subtitle = element_text(size = 13),
+
+    axis.text.y = element_text(
+      size = 10,        
+      hjust = 1,
+      lineheight = 1.15
+    ),
+
+    panel.grid.major.y = element_blank(),
+    legend.position = "top",
+
+    plot.margin = margin(20, 40, 20, 200)
+  ) + theme(
+  plot.title = element_text(size = 12),
+  plot.subtitle = element_text(size = 10)
+)
+
+
+ggsave("FINAL_wash_plot.png",
+       plot = p,
+       width = 20,    
+       height = 12,    
+       dpi = 300)
+
+p
+```
+
+Unsafe water exposure refers to health risks caused by lack of clean drinking water and sanitation. The chart shows that China has a very low WASH-related mortality rate compared to the top 20 most affected countries. Countries such as Lesotho, Chad, and Somalia have extremely high mortality rates, indicating severe challenges in access to safe water and sanitation. In contrast, China’s rate is close to zero, suggesting significant improvements in public health infrastructure and water safety. This large gap highlights global inequality. While China has made strong progress through investment in infrastructure and policy, many developing countries still face major barriers such as poverty, weak systems, and limited resources. 
+
+Overall, unsafe water remains a critical global issue, requiring international cooperation and long-term investment to reduce health risks worldwide.
+
+
+
+
+
+
+
